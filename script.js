@@ -1,6 +1,20 @@
 
-
+const countryNameForm = document.getElementById('country-name-form')
+const urlBase = 'https://restcountries.eu/rest/v2/'
+let countryName = ""
 let countriesWrapper = document.querySelector('.countries-wrapper');
+
+
+
+// ---------  Filters -------------------
+
+
+	
+countryNameForm.addEventListener("submit", event => {
+	event.preventDefault();
+	let country = countryNameForm.elements[0].value
+
+})
 
 async function getCountries() {
 	let response = await fetch('https://restcountries.eu/rest/v2/all');
