@@ -1,7 +1,10 @@
 
 let countriesWrapper = document.querySelector('.countries-wrapper');
-const countryNameForm = document.getElementById('filter-form')
+const countryNameForm = document.getElementById('filter-name')
 let countryNameQuery = ""
+
+const regionForm = document.getElementById('filter-region')
+let regionValue = ""
 
 
 // ---------  Filters -------------------
@@ -19,32 +22,46 @@ return countriesData
 //If it is not empty, only display the filtered results
 
 function DisplayAndFilterHTML(countriesData){
-let aCountry = countriesData[0];
-let filterResults = []
+	let aCountry = countriesData[0];
+	let filterResults = []
+	
+	// display all countries as default
+	countriesWrapper.innerHTML = countriesData.map(createHTML).join('')
+				
+		
+	regionForm.addEventListener('submit', watchRegionForm)
 
-// display all countries as default
-countriesWrapper.innerHTML = countriesData.map(createHTML).join('')
-// Event listener that stores user input
-	countryNameForm.addEventListener('submit', event => {
-		event.preventDefault();
-		countryNameQuery = document.getElementById('country-name').value
-		
-		filterResults = countriesData.filter(country => country.name.toUpperCase() === countryNameQuery.toUpperCase())
-         
-		//if array is empty 
-		
+	countryNameForm.addEventListener('submit', watchNameForm)
+
+
+	function watchNameForm(event){
+	event.preventDefault();
+    countryNameQuery = document.getElementById('country-name').value
+    filterResults = countriesData.filter(country => country.name.toUpperCase() === countryNameQuery.toUpperCase())
+    displayFilter(filterResults)
+
+	}			
+	
+	function watchRegionForm(event) {
+	event.preventDefault();
+	let regionSelect = document.getElementById('region-select')
+	regionValue = regionSelect.options[regionSelect.selectedIndex].value;
+	filterResults = countriesData.filter(country => country.region.toUpperCase() === regionValue.toUpperCase())
+	displayFilter(filterResults)
+}
+				
+				
+	  function displayFilter(filterResults){
 		if (filterResults.length != 0) {
-			countriesWrapper.innerHTML = filterResults.map(createHTML).join('')
+		countriesWrapper.innerHTML = filterResults.map(createHTML).join('')
 		} else {
-			countriesWrapper.innerHTML = countriesData.map(createHTML).join('')
+		countriesWrapper.innerHTML = countriesData.map(createHTML).join('')
 		}
-
-
-
-	})
-
+      }
 
 }
+
+
 
 
 
@@ -57,6 +74,7 @@ return	`
 </div>
 		<div class = "stat-container"> 
 				<p><span class ="subheading">Population:</span> ${aCountry.population.toLocaleString()}</p>
+				<p><span class ="subheading">Region:</span> ${aCountry.region}</p>
 				<p><span class ="subheading">Sub Region:</span> ${aCountry.subregion}</p>
 				<p><span class ="subheading">Languages:</span>
 					${aCountry.languages.map(language => {

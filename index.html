@@ -20,9 +20,23 @@
 
 		<h3>SEARCH</h3>
 
-		<form id="filter-form"> 
-			<input type="text" name="name" id="country-name" placeholder="Search by country or region...">
+		<form id="filter-name"> 
+			<label for="country-name">Search by country:</label>
+			<input type="text" name="name" id="country-name">
 			<button type="submit">Search</button>
+		</form>
+			<br>
+		<form id ="filter-region">
+			<label for="region">Search by region:</label>
+			<br>
+				<select id="region-select" name="region">
+				<option value="africa">Africa</option>
+				<option value="americas">Americas</option>
+				<option value="asia">Asia</option>
+				<option value="europe">Europe</option>
+				<option value="oceania">Oceania</option>
+				</select>
+			<input type="submit">
 		</form>
 
 		</div>
