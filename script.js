@@ -6,8 +6,9 @@ let countryNameQuery = ""
 const regionForm = document.getElementById('filter-region')
 let regionValue = ""
 
+const subregionForm = document.getElementById('filter-subregion')
+let subregionValue = ""
 
-// ---------  Filters -------------------
 
 async function getCountries() {
 	let response = await fetch('https://restcountries.eu/rest/v2/all');
@@ -18,9 +19,6 @@ return countriesData
 }
 
 
-//take the countries data. If the query is empty, then display all. 
-//If it is not empty, only display the filtered results
-
 function DisplayAndFilterHTML(countriesData){
 	let aCountry = countriesData[0];
 	let filterResults = []
@@ -28,10 +26,12 @@ function DisplayAndFilterHTML(countriesData){
 	// display all countries as default
 	countriesWrapper.innerHTML = countriesData.map(createHTML).join('')
 				
-		
-	regionForm.addEventListener('submit', watchRegionForm)
-
+	// filter options
 	countryNameForm.addEventListener('submit', watchNameForm)
+	
+	regionForm.addEventListener('change', watchRegionForm)
+	
+	subregionForm.addEventListener('change', watchSubRegionForm)
 
 
 	function watchNameForm(event){
@@ -49,6 +49,15 @@ function DisplayAndFilterHTML(countriesData){
 	filterResults = countriesData.filter(country => country.region.toUpperCase() === regionValue.toUpperCase())
 	displayFilter(filterResults)
 }
+	
+	function watchSubRegionForm(event) {
+	event.preventDefault();
+	let subregionSelect = document.getElementById('subregion-select')
+	subregionText = subregionSelect.options[subregionSelect.selectedIndex].text;
+	filterResults = countriesData.filter(country => country.subregion === subregionText)
+	displayFilter(filterResults)
+}
+		
 				
 				
 	  function displayFilter(filterResults){
@@ -60,8 +69,6 @@ function DisplayAndFilterHTML(countriesData){
       }
 
 }
-
-
 
 
 
