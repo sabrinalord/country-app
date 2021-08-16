@@ -1,7 +1,11 @@
 
-let countriesWrapper = document.querySelector('.countries-wrapper');
+let countriesWrapper = document.querySelector('.countries-wrapper')
+
 const countryNameForm = document.getElementById('filter-name')
 let countryNameQuery = ""
+
+const languageForm = document.getElementById('filter-language')
+let languageQuery = ""
 
 const regionForm = document.getElementById('filter-region')
 let regionValue = ""
@@ -9,11 +13,17 @@ let regionValue = ""
 const subregionForm = document.getElementById('filter-subregion')
 let subregionValue = ""
 
+const populationForm = document.getElementById('filter-population')
+let populationValue = ""
+
+
+
+
 
 async function getCountries() {
 	let response = await fetch('https://restcountries.eu/rest/v2/all');
 	let countriesData = await response.json();
-    
+    console.log(countriesData)
 return countriesData 
 
 }
@@ -25,13 +35,35 @@ function DisplayAndFilterHTML(countriesData){
 	
 	// display all countries as default
 	countriesWrapper.innerHTML = countriesData.map(createHTML).join('')
+	
+	
+    //clickable map
+   const countryElements = document.getElementById('countries').childNodes;
+    const countryCount = countryElements.length;
+    for (let i = 0; i < countryCount; i++) {
+      countryElements[i].onclick = function() {
+		  countryNameQuery = this.getAttribute('data-name')
+		 filterResults = countriesData.filter(country => country.name.toUpperCase() === countryNameQuery.toUpperCase())
+    displayFilter(filterResults)
+	
+	
+      }
+    }
+
+
+//end of clickable map
 				
 	// filter options
 	countryNameForm.addEventListener('submit', watchNameForm)
 	
+    languageForm.addEventListener('submit', watchLanguageForm)
+
+	
 	regionForm.addEventListener('change', watchRegionForm)
 	
 	subregionForm.addEventListener('change', watchSubRegionForm)
+	
+	populationForm.addEventListener('change', watchPopulationForm)
 
 
 	function watchNameForm(event){
@@ -40,7 +72,18 @@ function DisplayAndFilterHTML(countriesData){
     filterResults = countriesData.filter(country => country.name.toUpperCase() === countryNameQuery.toUpperCase())
     displayFilter(filterResults)
 
-	}			
+	}	
+	
+    function watchLanguageForm(event){
+	event.preventDefault();
+    languageQuery = document.getElementById('language').value
+    filterResults = countriesData.filter(function(country) {
+		if (country.languages.includes(languageQuery)) 
+		{console.log("hi")}}
+	)
+    displayFilter(filterResults)
+
+	}		
 	
 	function watchRegionForm(event) {
 	event.preventDefault();
@@ -55,6 +98,36 @@ function DisplayAndFilterHTML(countriesData){
 	let subregionSelect = document.getElementById('subregion-select')
 	subregionText = subregionSelect.options[subregionSelect.selectedIndex].text;
 	filterResults = countriesData.filter(country => country.subregion === subregionText)
+	displayFilter(filterResults)
+}
+	
+	function watchPopulationForm(event) {
+	event.preventDefault();
+		
+	let populationSelect = document.getElementById('population-select')
+	populationValue = populationSelect.options[populationSelect.selectedIndex].value;
+	
+		
+			filterResults = countriesData.filter(function(country){
+				if (populationValue == "very-low") {
+					return country.population >= 0 && country.population <= 20000}
+				else if (populationValue == "low"){
+					return country.population >= 20001 && country.population <= 1000000}
+
+				else if (populationValue == "medium"){
+					return country.population >= 1000001 && country.population <= 5000000
+				}
+			  else if (populationValue == "high"){
+					return country.population >= 5000001 && country.population <= 80000000
+			  }
+			  else if (populationValue == "very-high"){
+					return country.population >= 80000001 && country.population <= 2000000000
+			  }
+
+
+			}) 
+	
+
 	displayFilter(filterResults)
 }
 		
