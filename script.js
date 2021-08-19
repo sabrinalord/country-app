@@ -23,7 +23,6 @@ let populationValue = ""
 //clickable map
  const countryElements = document.getElementById('countries').childNodes;
 
-console.log(countryElements[1])
  const countryCount = countryElements.length;
 
 
@@ -34,7 +33,6 @@ console.log(countryElements[1])
 async function getCountries() {
 	let response = await fetch('https://restcountries.eu/rest/v2/all');
 	let countriesData = await response.json();
-    console.log(countriesData)
 return countriesData 
 
 }
@@ -168,14 +166,18 @@ function DisplayAndFilterHTML(countriesData){
 }
 		
 	function lightUpMap() {
+		
+		
+		
 		// nested loop - loop through country map, loop through filter results, check for matches, turn yellow.
 
 		  for (let i = 0; i < countryCount; i++) { 
-			  		countryElements[i].style.fill = "lightgray";
+			  		countryElements[i].classList.remove('highlight')
+
 
 					for(let j = 0; j < filterResults.length; j++) {
 						if(countryElements[i].getAttribute('data-name') == filterResults[j].name) {
-							countryElements[i].style.fill = "red";
+							countryElements[i].classList.add('highlight')
 						}
 					
 					}
