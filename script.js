@@ -22,13 +22,12 @@ let populationValue = ""
 
 //clickable map
  const countryElements = document.getElementById('countries').childNodes;
-
  const countryCount = countryElements.length;
+const mapSvg = document.getElementById('map-svg');
+
 
 
 //start of fetch call
-
-
 
 async function getCountries() {
 	let response = await fetch('https://restcountries.eu/rest/v2/all');
@@ -37,168 +36,158 @@ return countriesData
 
 }
 
+// end of fetch call
+
 
 function DisplayAndFilterHTML(countriesData){
-	let aCountry = countriesData[0];
-	let filterResults = []
-	
-	
-    //clickable map
+		let aCountry = countriesData[0];
+		let filterResults = []
 
-    for (let i = 0; i < countryCount; i++) {
-      countryElements[i].onclick = function() {
-		  countryNameForm.reset();
-		  countryNameQuery = this.getAttribute('data-name')
-		 filterResults = countriesData.filter(country => country.name.toUpperCase() === countryNameQuery.toUpperCase())
-    displayFilter(filterResults)
-		 lightUpMap()
-	
-      }
-    }
-	
-	
-//end of clickable map
-				
-	// filter options
-	countryNameForm.addEventListener('keyup', watchNameForm)
-	
-    languageForm.addEventListener('submit', watchLanguageForm)
 
-	
-	regionForm.addEventListener('change', watchRegionForm)
-	
-	subregionForm.addEventListener('change', watchSubRegionForm)
-	
-	populationForm.addEventListener('change', watchPopulationForm)
-	
-	
-//country name search bar
+		  //clickable map
 
-	function watchNameForm(event){
+		for (let i = 0; i < countryCount; i++) {
+		  countryElements[i].onclick = function() {
+				  countryNameForm.reset();
+				  countryNameQuery = this.getAttribute('data-name')
+				 filterResults = countriesData.filter(country => country.name.toUpperCase() === countryNameQuery.toUpperCase())
+				  displayFilter(filterResults)
+				 lightUpMap()
+		  }
+		}
+
+		// filter options
+		countryNameForm.addEventListener('keyup', watchNameForm)
+		languageForm.addEventListener('submit', watchLanguageForm)
+		regionForm.addEventListener('change', watchRegionForm)
+		subregionForm.addEventListener('change', watchSubRegionForm)
+		populationForm.addEventListener('change', watchPopulationForm)
+
+
+		  //country name search bar
+		function watchNameForm(event){
+			event.preventDefault();
+			countryNameQuery = document.getElementById('country-name').value
+
+				  //hide and display clear icon
+				if(countryNameQuery && clearIcon.style.visibility != "visible") {
+					clearIcon.style.visibility = "visible";
+				} else if(!countryNameQuery) {
+				  clearIcon.style.visibility = "hidden";
+				}
+
+			filterResults = countriesData.filter(country => country.name.toUpperCase() === countryNameQuery.toUpperCase())
+			displayFilter(filterResults)
+			 lightUpMap()
+
+
+			clearIcon.addEventListener("click", () => {
+				countryNameQuery = "";
+				countryNameForm.reset();
+				clearIcon.style.visibility = "hidden";
+				filterResults = []
+				displayFilter(filterResults)
+			})
+
+		}
+
+	//  end of country name search bar
+
+
+		function watchLanguageForm(event){
 		event.preventDefault();
-		countryNameQuery = document.getElementById('country-name').value
+		languageQuery = document.getElementById('language').value
+		filterResults = countriesData.filter(function(country) {
+			if (country.languages.includes(languageQuery)) 
+			{console.log("hi")}}
+		)
+		displayFilter(filterResults)
 
-      //hide and display clear icon
-			if(countryNameQuery && clearIcon.style.visibility != "visible") {
-				clearIcon.style.visibility = "visible";
-			} else if(!countryNameQuery) {
-			  clearIcon.style.visibility = "hidden";
-			}
+		}		
 
-		filterResults = countriesData.filter(country => country.name.toUpperCase() === countryNameQuery.toUpperCase())
+		function watchRegionForm(event) {
+		event.preventDefault();
+		let regionSelect = document.getElementById('region-select')
+		regionValue = regionSelect.options[regionSelect.selectedIndex].value;
+		filterResults = countriesData.filter(country => country.region.toUpperCase() === regionValue.toUpperCase())
 		displayFilter(filterResults)
 		 lightUpMap()
 
 
-		clearIcon.addEventListener("click", () => {
-			countryNameQuery = "";
-			countryNameForm.reset();
-			clearIcon.style.visibility = "hidden";
-			filterResults = []
-			displayFilter(filterResults)
-		})
-
 	}
-	
-//  end of country name search bar
 
-	
-    function watchLanguageForm(event){
-	event.preventDefault();
-    languageQuery = document.getElementById('language').value
-    filterResults = countriesData.filter(function(country) {
-		if (country.languages.includes(languageQuery)) 
-		{console.log("hi")}}
-	)
-    displayFilter(filterResults)
+		function watchSubRegionForm(event) {
+		event.preventDefault();
+		let subregionSelect = document.getElementById('subregion-select')
+		subregionText = subregionSelect.options[subregionSelect.selectedIndex].text;
+		filterResults = countriesData.filter(country => country.subregion === subregionText)
+		displayFilter(filterResults)
+		 lightUpMap()
+	}
 
-	}		
-	
-	function watchRegionForm(event) {
-	event.preventDefault();
-	let regionSelect = document.getElementById('region-select')
-	regionValue = regionSelect.options[regionSelect.selectedIndex].value;
-	filterResults = countriesData.filter(country => country.region.toUpperCase() === regionValue.toUpperCase())
-	displayFilter(filterResults)
-	 lightUpMap()
-	
+		function watchPopulationForm(event) {
+		event.preventDefault();
 
-}
-	
-	function watchSubRegionForm(event) {
-	event.preventDefault();
-	let subregionSelect = document.getElementById('subregion-select')
-	subregionText = subregionSelect.options[subregionSelect.selectedIndex].text;
-	filterResults = countriesData.filter(country => country.subregion === subregionText)
-	displayFilter(filterResults)
-	 lightUpMap()
-}
-	
-	function watchPopulationForm(event) {
-	event.preventDefault();
-		
-	let populationSelect = document.getElementById('population-select')
-	populationValue = populationSelect.options[populationSelect.selectedIndex].value;
-	
-		
-			filterResults = countriesData.filter(function(country){
-				if (populationValue == "very-low") {
-					return country.population >= 0 && country.population <= 20000}
-				else if (populationValue == "low"){
-					return country.population >= 20001 && country.population <= 1000000}
-
-				else if (populationValue == "medium"){
-					return country.population >= 1000001 && country.population <= 5000000
-				}
-			  else if (populationValue == "high"){
-					return country.population >= 5000001 && country.population <= 80000000
-			  }
-			  else if (populationValue == "very-high"){
-					return country.population >= 80000001 && country.population <= 2000000000
-			  }
+		let populationSelect = document.getElementById('population-select')
+		populationValue = populationSelect.options[populationSelect.selectedIndex].value;
 
 
-			}) 
-	
+				filterResults = countriesData.filter(function(country){
+					if (populationValue == "very-low") {
+						return country.population >= 0 && country.population <= 20000}
+					else if (populationValue == "low"){
+						return country.population >= 20001 && country.population <= 1000000}
 
-	displayFilter(filterResults)
-	 lightUpMap()
-}
-		
-	function lightUpMap() {
-		
-		
-		
-		// nested loop - loop through country map, loop through filter results, check for matches, turn yellow.
-
-		  for (let i = 0; i < countryCount; i++) { 
-			  		countryElements[i].classList.remove('highlight')
-
-
-					for(let j = 0; j < filterResults.length; j++) {
-						if(countryElements[i].getAttribute('data-name') == filterResults[j].name) {
-							countryElements[i].classList.add('highlight')
-							countryElements[i].classList.remove('land')
-
-							
-						}
-					
+					else if (populationValue == "medium"){
+						return country.population >= 1000001 && country.population <= 5000000
 					}
-		  }
+				  else if (populationValue == "high"){
+						return country.population >= 5000001 && country.population <= 80000000
+				  }
+				  else if (populationValue == "very-high"){
+						return country.population >= 80000001 && country.population <= 2000000000
+				  }
+
+
+				}) 
+
+
+		displayFilter(filterResults)
+		 lightUpMap()
 	}
-				
-				
-	  function displayFilter(filterResults){
-		if (filterResults.length != 0) {
-		countryCardWrapper.innerHTML = filterResults.map(createHTML).join('')
-		} else {
-		countryCardWrapper.innerHTML = "";
+
+		function lightUpMap() {
+
+
+
+			// nested loop - loop through country map, loop through filter results, check for matches, turn yellow.
+
+			  for (let i = 0; i < countryCount; i++) { 
+						countryElements[i].classList.remove('highlight')
+
+
+						for(let j = 0; j < filterResults.length; j++) {
+							if(countryElements[i].getAttribute('data-name') == filterResults[j].name) {
+								countryElements[i].classList.add('highlight')
+								countryElements[i].classList.remove('land')
+
+
+							}
+
+						}
+			  }
 		}
-      }
+
+
+		  function displayFilter(filterResults){
+			if (filterResults.length != 0) {
+			countryCardWrapper.innerHTML = filterResults.map(createHTML).join('')
+			} else {
+			countryCardWrapper.innerHTML = "";
+			}
+		  }
 
 }
-
-
 
 function createHTML(aCountry) {
 return	`
@@ -228,13 +217,111 @@ return	`
 `
 }
 
+//draggable svg map
+// If browser supports pointer events
+if (window.PointerEvent) {
+  mapSvg.addEventListener('pointerdown', onPointerDown); // Pointer is pressed
+  mapSvg.addEventListener('pointerup', onPointerUp); // Releasing the pointer
+  mapSvg.addEventListener('pointerleave', onPointerUp); // Pointer gets out of the SVG area
+  mapSvg.addEventListener('pointermove', onPointerMove); // Pointer is moving
+} else {
+  // Add all mouse events listeners fallback
+ mapSvg.addEventListener('mousedown', onPointerDown); // Pressing the mouse
+mapSvg.addEventListener('mouseup', onPointerUp); // Releasing the mouse
+  mapSvg.addEventListener('mouseleave', onPointerUp); // Mouse gets out of the SVG area
+ mapSvg.addEventListener('mousemove', onPointerMove); // Mouse is moving
+
+  // Add all touch events listeners fallback
+ mapSvg.addEventListener('touchstart', onPointerDown); // Finger is touching the screen
+  mapSvg.addEventListener('touchend', onPointerUp); // Finger is no longer touching the screen
+  mapSvg.addEventListener('touchmove', onPointerMove); // Finger is moving
+}
+
+
+// This function returns an object with X & Y values from the pointer event
+function getPointFromEvent (event) {
+  var point = {x:0, y:0};
+  // If event is triggered by a touch event, we get the position of the first finger
+  if (event.targetTouches) {
+    point.x = event.targetTouches[0].clientX;
+    point.y = event.targetTouches[0].clientY;
+  } else {
+    point.x = event.clientX;
+    point.y = event.clientY;
+  }
+  
+  return point;
+}
+
+// This variable will be used later for move events to check if pointer is down or not
+var isPointerDown = false;
+
+// This variable will contain the original coordinates when the user start pressing the mouse or touching the screen
+var pointerOrigin = {
+  x: 0,
+  y: 0
+};
 
 
 
-// is search criteria is empty display all countries
-// else listen for a click and display countries based on search criteria
+// Function called by the event listeners when user start pressing/touching
+function onPointerDown(event) {
+  isPointerDown = true; // We set the pointer as down
+  
+  // We get the pointer position on click/touchdown so we can get the value once the user starts to drag
+  const pointerPosition = getPointFromEvent(event);
+  pointerOrigin.x = pointerPosition.x;
+  pointerOrigin.y = pointerPosition.y;
+}
 
-//watchForm();
+function onPointerUp() {
+  // The pointer is no longer considered as down
+  isPointerDown = false;
+
+  // We save the viewBox coordinates based on the last pointer offsets
+  viewBox.x = newViewBox.x;
+  viewBox.y = newViewBox.y;
+}
+
+// We save the original values from the viewBox
+const viewBox = {
+  x: 0,
+  y: 0,
+  width: 1200,
+  height: 700
+};
+
+// The distances calculated from the pointer will be stored here
+const newViewBox = {
+  x: 0,
+  y: 0
+};
+
+// Function called by the event listeners when user start moving/dragging
+function onPointerMove (event) {
+  // Only run this function if the pointer is down
+  if (!isPointerDown) {
+    return;
+  }
+  // This prevent user to do a selection on the page
+  event.preventDefault();
+
+  // Get the pointer position
+  const pointerPosition = getPointFromEvent(event);
+
+  // We calculate the distance between the pointer origin and the current position
+  // The viewBox x & y values must be calculated from the original values and the distances
+  newViewBox.x = viewBox.x - (pointerPosition.x - pointerOrigin.x);
+  newViewBox.y = viewBox.y - (pointerPosition.y - pointerOrigin.y);
+
+  // We create a string with the new viewBox values
+  // The X & Y values are equal to the current viewBox minus the calculated distances
+  const viewBoxString = `${newViewBox.x} ${newViewBox.y} ${viewBox.width} ${viewBox.height}`;
+  // We apply the new viewBox values onto the SVG
+  mapSvg.setAttribute('viewBox', viewBoxString);
+  
+  document.querySelector('.viewbox').innerHTML = viewBoxString;
+}
 
 getCountries().then(DisplayAndFilterHTML)
 

@@ -5,6 +5,7 @@ body {
 	font-family:arial;
     background: #020202;
 	color:#fff;
+	position:relative;
 }
 
 textarea:focus, input:focus, select:focus{
@@ -44,7 +45,6 @@ p {
 
 
 .site-wrapper {
-	display:flex;
 	position:relative;
 }
 
@@ -58,6 +58,7 @@ p {
     background: #2f2f2f;
     padding: 2em;
 	 width: 20%;
+	    position: absolute;
 
 }
 
@@ -77,12 +78,9 @@ p {
 /*-------------------------- MAIN LAYOUT -------------------------------------------*/
 
 
-.main-wrapper{
-	width:100%;
-}
-
 .main-container{
 		position:relative;
+	overflow: hidden;
 
 }
 
@@ -101,8 +99,8 @@ padding: 0.5em 2em;
 .logo-wrapper {
     display: flex;
     align-items: center;
-	width: 33%;
-	justify-content: flex-end;
+	width: 30%;
+
 }
 
 .logo-text {
@@ -112,7 +110,7 @@ padding: 0.5em 2em;
 
 .country-search-wrapper{
     display: flex;
-	    width: 33%;
+	    width: 70%;
 	    margin: 0em 2em;
 
 }
@@ -175,14 +173,21 @@ justify-content: space-between;
 
 .map-container {
    margin:1em 0em 0em 2em;
+	display: flex;
+	justify-content: center;
 }
 
 svg#map-svg{
 	fill: lightgray; 
 	stroke: white;
-    width: 100%;
-    height: 1200px;
-		cursor:pointer;
+	cursor:grab;
+	width:100%;
+}
+
+svg#map-svg:active { cursor: grabbing; }
+
+.land{
+cursor:pointer;
 }
 .land:hover{
 	fill: gray; 
@@ -204,7 +209,6 @@ svg#map-svg{
 	width: 100%;
     background: #0000ffa6;
 	 justify-content: center;
-    padding: 1em;
 	display:flex;
 
 }
