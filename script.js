@@ -1,5 +1,5 @@
 
-let countriesWrapper = document.querySelector('.countries-wrapper')
+let countryCardWrapper = document.querySelector('.country-card-wrapper')
 
 //country search variables
 
@@ -51,7 +51,7 @@ function DisplayAndFilterHTML(countriesData){
 		  countryNameQuery = this.getAttribute('data-name')
 		 filterResults = countriesData.filter(country => country.name.toUpperCase() === countryNameQuery.toUpperCase())
     displayFilter(filterResults)
-	
+		 lightUpMap()
 	
       }
     }
@@ -178,6 +178,9 @@ function DisplayAndFilterHTML(countriesData){
 					for(let j = 0; j < filterResults.length; j++) {
 						if(countryElements[i].getAttribute('data-name') == filterResults[j].name) {
 							countryElements[i].classList.add('highlight')
+							countryElements[i].classList.remove('land')
+
+							
 						}
 					
 					}
@@ -187,9 +190,9 @@ function DisplayAndFilterHTML(countriesData){
 				
 	  function displayFilter(filterResults){
 		if (filterResults.length != 0) {
-		countriesWrapper.innerHTML = filterResults.map(createHTML).join('')
+		countryCardWrapper.innerHTML = filterResults.map(createHTML).join('')
 		} else {
-		countriesWrapper.innerHTML = "";
+		countryCardWrapper.innerHTML = "";
 		}
       }
 
@@ -200,10 +203,10 @@ function DisplayAndFilterHTML(countriesData){
 function createHTML(aCountry) {
 return	`
 <div class = "country-card">
-   <div class = "flag-container">
-<h2 class = "title">${aCountry.name}</h2>
-<img class ="flag-image" src="${aCountry.flag}" />
-</div>
+	<div class = "flag-container">
+		<img class ="flag-image" src="${aCountry.flag}" />
+		<h2 class = "title">${aCountry.name}</h2>
+	</div>
 		<div class = "stat-container"> 
 				<p><span class ="subheading">Population:</span> ${aCountry.population.toLocaleString()}</p>
 				<p><span class ="subheading">Region:</span> ${aCountry.region}</p>
