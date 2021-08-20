@@ -286,15 +286,15 @@ function onPointerUp() {
 // We save the original values from the viewBox
 const viewBox = {
   x: 0,
-  y: 0,
+  y: 50,
   width: 1200,
-  height: 700
+  height: 800
 };
 
 // The distances calculated from the pointer will be stored here
 const newViewBox = {
   x: 0,
-  y: 0
+  y: 50
 };
 
 // Function called by the event listeners when user start moving/dragging
@@ -322,6 +322,25 @@ function onPointerMove (event) {
   
   document.querySelector('.viewbox').innerHTML = viewBoxString;
 }
+
+
+
+//Filter button and sidebar
+
+const filterBtn = document.querySelector('.filter-icon-btn')
+
+function openSidebar() {
+	document.querySelector('.search-wrapper').style.width = "250px";
+
+}
+
+function closeSidebar() {
+	document.querySelector('.search-wrapper').style.width = "0px";
+
+}
+
+
+
 
 getCountries().then(DisplayAndFilterHTML)
 

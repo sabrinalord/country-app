@@ -3,9 +3,8 @@
 body {
 	margin: 0 auto;
 	font-family:arial;
-    background: #020202;
+    background: #000b35;
 	color:#fff;
-	position:relative;
 }
 
 textarea:focus, input:focus, select:focus{
@@ -49,18 +48,68 @@ p {
 }
 
 
-/*----------------- FILTER SIDE BAR --------------------*/
+/*----------------- FILTER SIDE BAR BUTTON --------------------*/
+
+
+.filter-icon-btn{
+	margin-bottom:2em;
+	background:black;
+	padding:1em;
+	width:100px;
+display:flex;
+}
+
+.filter-text{
+	    display: flex;
+    align-items: center;
+    margin-right: 1em;
+}
+
+
+#filter-svg {
+	fill:#fff;
+		width:30px;
+	cursor:pointer;
+}
+
+#filter-svg:hover{
+	fill:#00fff9;
+}
+
+/*----------------- SIDEBAR --------------------*/
+
+
 
 
 .search-wrapper {
 
-    max-width: 250px;
-    background: #2f2f2f;
-    padding: 2em;
-	 width: 20%;
-	    position: absolute;
+    background: #0b0f1d;
+	 width: 0;
+	    position: fixed;
+	overflow:hidden;
+	transition: 0.4s;
+	
 
 }
+
+.filter-header{
+	    display: flex;
+    justify-content: space-between;
+}
+
+svg#filter-close {
+    width: 15px;
+    height: auto;
+    fill: white;
+	padding: 1.5em;
+}
+
+
+.search-container{
+		padding: 1.5em;
+
+}
+
 
 .searchbar-small {
     display: flex;
@@ -72,6 +121,7 @@ p {
     background: white;
     padding: 0.2em 0.5em;
     max-width: 350px;
+	 transition: 0.5s;
 }
 
 
@@ -116,28 +166,7 @@ padding: 0.5em 2em;
 }
 
 
-.filter-icon-wrapper{
-    display: flex;
-justify-content: space-between;
-	margin-bottom:2em;
-}
 
-.filter-text{
-	    display: flex;
-    align-items: center;
-    margin-right: 1em;
-}
-
-
-#filter-svg {
-	fill:#fff;
-		width:30px;
-	cursor:pointer;
-}
-
-#filter-svg:hover{
-	fill:#00fff9;
-}
 
 /*---------COUNTRY SEARCH BAR STYLING --------*/
 
@@ -177,14 +206,16 @@ justify-content: space-between;
 	justify-content: center;
 }
 
-svg#map-svg{
+#map-svg{
 	fill: lightgray; 
-	stroke: white;
+	  stroke: white;
+    -webkit-text-stroke-width: thin;
+    stroke-width: 0.5px;
 	cursor:grab;
 	width:100%;
 }
 
-svg#map-svg:active { cursor: grabbing; }
+#map-svg:active { cursor: grabbing; }
 
 .land{
 cursor:pointer;
@@ -205,13 +236,20 @@ cursor:pointer;
     overflow-y: hidden;
     white-space: nowrap;
 	position:absolute;
-	bottom:0;
-	width: 100%;
-    background: #0000ffa6;
-	 justify-content: center;
-	display:flex;
+	-ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+	bottom: 0;
+	width:100%;
+	background:#060606ad;
+	    display: flex;
+    justify-content: center;
 
 }
+
+.country-card-wrapper::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
 
 .country-card {
     min-width: 260px;
@@ -223,6 +261,7 @@ cursor:pointer;
     overflow: hidden;
 	display:inline-block;
 		opacity:0.9;
+	
 
 }
 
