@@ -41,6 +41,7 @@ return countriesData
 // end of fetch call
 
 
+
 function DisplayAndFilterHTML(countriesData){
 		let aCountry = countriesData[0];
 		let filterResults = []
@@ -59,7 +60,7 @@ function DisplayAndFilterHTML(countriesData){
 		}
 
 		// filter options
-		countryNameForm.addEventListener('keyup', watchNameForm)
+		countryNameForm.addEventListener('submit', watchNameForm)
 		languageForm.addEventListener('submit', watchLanguageForm)
 		regionForm.addEventListener('change', watchRegionForm)
 		subregionForm.addEventListener('change', watchSubRegionForm)
@@ -71,25 +72,13 @@ function DisplayAndFilterHTML(countriesData){
 			event.preventDefault();
 			countryNameQuery = document.getElementById('country-name').value
 
-				  //hide and display clear icon
-				if(countryNameQuery && clearIcon.style.visibility != "visible") {
-					clearIcon.style.visibility = "visible";
-				} else if(!countryNameQuery) {
-				  clearIcon.style.visibility = "hidden";
-				}
+	
 
-			filterResults = countriesData.filter(country => country.name.toUpperCase() === countryNameQuery.toUpperCase())
+			filterResults = countriesData.filter(country => country.name.includes(countryNameQuery) )
 			displayFilter(filterResults)
 			 lightUpMap()
 
 
-			clearIcon.addEventListener("click", () => {
-				countryNameQuery = "";
-				countryNameForm.reset();
-				clearIcon.style.visibility = "hidden";
-				filterResults = []
-				displayFilter(filterResults)
-			})
 
 		}
 
@@ -98,11 +87,11 @@ function DisplayAndFilterHTML(countriesData){
 
 		function watchLanguageForm(event){
 		event.preventDefault();
-		languageQuery = document.getElementById('language').value
-		filterResults = countriesData.filter(function(country) {
-			if (country.languages.includes(languageQuery)) 
-			{console.log("hi")}}
-		)
+		languageQuery = document.getElementById('languages').value
+
+		filterResults = countriesData.filter(country => country.languages.includes(languageQuery) )
+		console.log(countriesData[5].languages.name)
+
 		displayFilter(filterResults)
 
 		}		
@@ -160,8 +149,6 @@ function DisplayAndFilterHTML(countriesData){
 
 		function lightUpMap() {
 
-
-
 			// nested loop - loop through country map, loop through filter results, check for matches, turn yellow.
 
 			  for (let i = 0; i < countryCount; i++) { 
@@ -185,22 +172,41 @@ function DisplayAndFilterHTML(countriesData){
 			if (filterResults.length > 1) {
 			document.querySelector('.country-card-wrapper').style.opacity="1";
 			countryCardContainer.innerHTML = filterResults.map(createHTML).join('');
-						  countryCardArrow.style.display = "block";
-							countryCardWrapper.style.display = "flex";
+					countryCardWrapper.classList.remove('country-card-single')
+					countryCardWrapper.style.display = "flex";
+				showHidearrow()
 
 			} 
 			  else if (filterResults.length == 1) {
-					document.querySelector('.country-card-wrapper').style.opacity="1";
-			countryCardContainer.innerHTML = filterResults.map(createHTML).join('')
-			countryCardWrapper.style.display = "unset";
-				  countryCardArrow.style.display = "none";
+            countryCardWrapper.style.display = "flex";
+			document.querySelector('.country-card-wrapper').style.opacity="1";
+			countryCardContainer.innerHTML = filterResults.map(createHTML).join('');
+			countryCardWrapper.classList.add('country-card-single');
+			countryCardArrow.style.display = "none";
 			  }
 			  else {
-			countryCardContainer.innerHTML = "";
+			   countryCardWrapper.style.display = "none";
 			}
 		  }
+	
+	
+
+	// show or hide the scrolling chevron for country card wrapper
+			
+		function showHidearrow() {
+					if (countryCardContainer.scrollWidth > countryCardContainer.clientWidth){
+						  countryCardArrow.style.display = "block";
+					}
+					else {
+						  countryCardArrow.style.display = "none";
+					}
+				}
+				
 
 }
+
+
+
 
 function createHTML(aCountry) {
 return	`
@@ -229,6 +235,8 @@ return	`
 </div>
 `
 }
+
+
 
 //draggable svg map
 // If browser supports pointer events
@@ -353,7 +361,22 @@ function closeSidebar() {
 }
 
 
+// country wrapper close
 
+function closeCountryWrapper(){
+	countryCardWrapper.style.display = "none";
+}
+
+// country wrapper scroll right
+
+function scrollRight(){
+	event.preventDefault();
+countryCardContainer.scrollBy({	
+  left: 500,
+  behavior: 'smooth'
+	})
+	
+}
 
 getCountries().then(DisplayAndFilterHTML)
 

@@ -124,6 +124,10 @@ svg#filter-svg\ filter-close {
 
 }
 
+.search-container p {
+	width:100px;
+}
+
 
 .searchbar-small {
     display: flex;
@@ -183,9 +187,11 @@ header {
 
 
 .search-icon {
-	   background: none;
-    border: none;
-	    padding: 0.2em;
+    width: 15px;
+    z-index: 1;
+    color: #868686;
+    margin-right: 0.5em;
+    padding: 0em .2em;
 }
 
   .clear-icon {
@@ -223,8 +229,20 @@ cursor:pointer;
 }
 
 
-/*----------------- CARD STYLING --------------------*/
+/*----------------- COUNTRY CARD STYLING --------------------*/
+.country-card-wrapper{
+    background: #000000ad;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+	opacity:0;
+	transition: 0.4s;
+	display:flex;
+}
 
+.country-card-single {
+	justify-content:center;
+}
 
 .country-card-nav{
 	padding: 1em;
@@ -232,19 +250,19 @@ cursor:pointer;
     align-items: center;
 }
 
+.country-wrapper-close-icon{
+	position:absolute;
+	right:0px;
+	top:0px;
+}
+
+
 
 i.fas.fa-chevron-right {
     font-size: 2em;
+	cursor:pointer;
 }
-.country-card-wrapper{
-    background: #000000ad;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-		opacity:0;
-	transition: 0.4s;
-	display:flex;
-}
+
 .country-card-container {
     overflow: hidden;
     overflow-x: scroll;
@@ -253,9 +271,7 @@ i.fas.fa-chevron-right {
 	-ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none;  /* Firefox */
 	    display: flex;
-    justify-content: center;
 		margin:0em 1em;
-
 
 }
 
