@@ -1,5 +1,7 @@
 
-let countryCardWrapper = document.querySelector('.country-card-wrapper')
+const countryCardContainer = document.querySelector('.country-card-container')
+const countryCardWrapper = document.querySelector('.country-card-wrapper')
+const countryCardArrow = document.querySelector('.fa-chevron-right')
 
 //country search variables
 
@@ -180,10 +182,21 @@ function DisplayAndFilterHTML(countriesData){
 
 
 		  function displayFilter(filterResults){
-			if (filterResults.length != 0) {
-			countryCardWrapper.innerHTML = filterResults.map(createHTML).join('')
-			} else {
-			countryCardWrapper.innerHTML = "";
+			if (filterResults.length > 1) {
+			document.querySelector('.country-card-wrapper').style.opacity="1";
+			countryCardContainer.innerHTML = filterResults.map(createHTML).join('');
+						  countryCardArrow.style.display = "block";
+							countryCardWrapper.style.display = "flex";
+
+			} 
+			  else if (filterResults.length == 1) {
+					document.querySelector('.country-card-wrapper').style.opacity="1";
+			countryCardContainer.innerHTML = filterResults.map(createHTML).join('')
+			countryCardWrapper.style.display = "unset";
+				  countryCardArrow.style.display = "none";
+			  }
+			  else {
+			countryCardContainer.innerHTML = "";
 			}
 		  }
 

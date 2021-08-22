@@ -1,10 +1,15 @@
 
-
+html, body {
+    margin: 0;
+    height: 100%;
+	min-height:100%;
+}
 body {
 	margin: 0 auto;
 	font-family:arial;
-    background: #000b35;
+background: radial-gradient(circle, rgba(13,22,191,1) 1%, rgb(63 66 148) 36%, rgb(29 97 222) 62%, rgb(0 0 0) 95%);
 	color:#fff;
+	position:relative;
 }
 
 textarea:focus, input:focus, select:focus{
@@ -45,18 +50,18 @@ p {
 
 .site-wrapper {
 	position:relative;
+	width:100%;
 }
+
+
 
 
 /*----------------- FILTER SIDE BAR BUTTON --------------------*/
 
 
 .filter-icon-btn{
-	margin-bottom:2em;
-	background:black;
 	padding:1em;
-	width:100px;
-display:flex;
+
 }
 
 .filter-text{
@@ -69,39 +74,48 @@ display:flex;
 #filter-svg {
 	fill:#fff;
 		width:30px;
+}
+
+
+svg#filter-svg\ filter-close {
+	 width: 30px;
+    fill: grey;
+}
+
+
+.filter-open{
 	cursor:pointer;
 }
 
-#filter-svg:hover{
+.filter-open:hover{
 	fill:#00fff9;
 }
-
-/*----------------- SIDEBAR --------------------*/
-
 
 
 
 .search-wrapper {
 
-    background: #0b0f1d;
+    background:#191932;
 	 width: 0;
-	    position: fixed;
+	    position: absolute;
 	overflow:hidden;
 	transition: 0.4s;
+	z-index:1;
 	
 
 }
 
 .filter-header{
 	    display: flex;
-    justify-content: space-between;
+	justify-content: space-between;
 }
 
-svg#filter-close {
+.closeBtn {
     width: 15px;
     height: auto;
     fill: white;
 	padding: 1.5em;
+	cursor:pointer;
 }
 
 
@@ -116,12 +130,12 @@ svg#filter-close {
 }
 
 .form-sidebar {
-	 margin: 0.4em 0em 1.2em;
-    min-width: 200px;
+    margin: 1em 0em 1.5em;
     background: white;
-    padding: 0.2em 0.5em;
+    padding: 0.5em 0.5em;
     max-width: 350px;
-	 transition: 0.5s;
+    transition: 0.5s;
+    border-radius: 20px;
 }
 
 
@@ -130,7 +144,6 @@ svg#filter-close {
 
 .main-container{
 		position:relative;
-	overflow: hidden;
 
 }
 
@@ -138,37 +151,24 @@ svg#filter-close {
 
 
 header {
-padding: 0.5em 2em;
-    margin-top: 0.2em;
-    display: flex;
-    align-items: center;
-    background: #232323;
+      display: flex;
     justify-content: space-between;
-}
-
-.logo-wrapper {
-    display: flex;
+    background: #191932;
     align-items: center;
-	width: 30%;
-
+	    width: 100%;
+    z-index: 1;
+    position: fixed;
 }
 
-.logo-text {
-	    font-weight: 800;	
-	    margin-right:0.5em;
-}
-
-.country-search-wrapper{
-    display: flex;
-	    width: 70%;
-	    margin: 0em 2em;
-
-}
 
 
 
 
 /*---------COUNTRY SEARCH BAR STYLING --------*/
+
+.country-search-wrapper{
+	margin-right:3em;
+}
 
 
 .searchbar-large {
@@ -177,7 +177,6 @@ padding: 0.5em 2em;
     background: white;
     border-radius: 20px;
     padding: 0.5em 1em;
-    max-width: 350px;
 }
 
 
@@ -200,11 +199,6 @@ padding: 0.5em 2em;
 /*---------------- CLICKABLE MAP --------------------*/
 
 
-.map-container {
-   margin:1em 0em 0em 2em;
-	display: flex;
-	justify-content: center;
-}
 
 #map-svg{
 	fill: lightgray; 
@@ -230,23 +224,44 @@ cursor:pointer;
 
 
 /*----------------- CARD STYLING --------------------*/
-.country-card-wrapper {
+
+
+.country-card-nav{
+	padding: 1em;
+    display: flex;
+    align-items: center;
+}
+
+
+i.fas.fa-chevron-right {
+    font-size: 2em;
+}
+.country-card-wrapper{
+    background: #000000ad;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+		opacity:0;
+	transition: 0.4s;
+	display:flex;
+}
+.country-card-container {
     overflow: hidden;
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
-	position:absolute;
 	-ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none;  /* Firefox */
-	bottom: 0;
-	width:100%;
-	background:#060606ad;
 	    display: flex;
     justify-content: center;
+		margin:0em 1em;
+
 
 }
 
-.country-card-wrapper::-webkit-scrollbar { 
+
+
+.country-card-container::-webkit-scrollbar { 
     display: none;  /* Safari and Chrome */
 }
 
