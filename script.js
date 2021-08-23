@@ -72,32 +72,34 @@ function DisplayAndFilterHTML(countriesData){
 			event.preventDefault();
 			countryNameQuery = document.getElementById('country-name').value
 
-	
-
 			filterResults = countriesData.filter(country => country.name.toUpperCase().includes(countryNameQuery.toUpperCase()) )
 			displayFilter(filterResults)
 			 lightUpMap()
-
-
-
 		}
 
 	//  end of country name search bar
 
 
 		function watchLanguageForm(event){
-			
-		
 		event.preventDefault();
-		languageQuery = document.getElementById('languages').value
-		filterResults = countriesData.filter(country => country.languages.includes(languageQuery) )
-console.log(countriesData[5].languages[1])
-		displayFilter(filterResults)
+		languageQuery = document.getElementById('language').value;
+			
+	    filterResults = countriesData.filter(country => country.languages.some(language => language.name === languageQuery))
+		
+		console.log(filterResults)
+			//Filter countries data array.
+						
+			// check if languageQuery is present in the countriesData.languages array, then include that country in the filter.. 
+			
+	
 
+		
+		displayFilter(filterResults)
+		 lightUpMap()
 		}		
 
 		function watchRegionForm(event) {
-		event.preventDefault();
+		event.preventDefault(); 
 		let regionSelect = document.getElementById('region-select')
 		regionValue = regionSelect.options[regionSelect.selectedIndex].value;
 		filterResults = countriesData.filter(country => country.region.toUpperCase() === regionValue.toUpperCase())
