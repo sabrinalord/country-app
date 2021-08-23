@@ -74,7 +74,7 @@ function DisplayAndFilterHTML(countriesData){
 
 	
 
-			filterResults = countriesData.filter(country => country.name.includes(countryNameQuery) )
+			filterResults = countriesData.filter(country => country.name.toUpperCase().includes(countryNameQuery.toUpperCase()) )
 			displayFilter(filterResults)
 			 lightUpMap()
 
@@ -86,12 +86,12 @@ function DisplayAndFilterHTML(countriesData){
 
 
 		function watchLanguageForm(event){
+			
+		
 		event.preventDefault();
 		languageQuery = document.getElementById('languages').value
-
 		filterResults = countriesData.filter(country => country.languages.includes(languageQuery) )
-		console.log(countriesData[5].languages.name)
-
+console.log(countriesData[5].languages[1])
 		displayFilter(filterResults)
 
 		}		
@@ -211,9 +211,9 @@ function DisplayAndFilterHTML(countriesData){
 function createHTML(aCountry) {
 return	`
 <div class = "country-card">
-	<div class = "flag-container">
-		<img class ="flag-image" src="${aCountry.flag}" />
-		<h2 class = "title">${aCountry.name}</h2>
+	<div class = "flag-container" style="background-image:url(${aCountry.flag})">
+       <div class = "title-container"><span class = "title">${aCountry.name}</span>
+</div>
 	</div>
 		<div class = "stat-container"> 
 				<p><span class ="subheading">Population:</span> ${aCountry.population.toLocaleString()}</p>

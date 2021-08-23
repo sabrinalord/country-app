@@ -7,7 +7,6 @@ html, body {
 body {
 	margin: 0 auto;
 	font-family:arial;
-background: radial-gradient(circle, rgba(13,22,191,1) 1%, rgb(63 66 148) 36%, rgb(29 97 222) 62%, rgb(0 0 0) 95%);
 	color:#fff;
 	position:relative;
 }
@@ -51,6 +50,7 @@ p {
 .site-wrapper {
 	position:relative;
 	width:100%;
+	    background: radial-gradient(#ffffff 5%, #d0d0d0);
 }
 
 
@@ -97,7 +97,7 @@ svg#filter-svg\ filter-close {
 
     background:#191932;
 	 width: 0;
-	    position: absolute;
+	    position: fixed;
 	overflow:hidden;
 	transition: 0.4s;
 	z-index:1;
@@ -207,7 +207,7 @@ header {
 
 
 #map-svg{
-	fill: lightgray; 
+	fill: #6aa9ff; 
 	  stroke: white;
     -webkit-text-stroke-width: thin;
     stroke-width: 0.5px;
@@ -221,7 +221,7 @@ header {
 cursor:pointer;
 }
 .land:hover{
-	fill: gray; 
+	fill: #3f3f6b; 
 }
 
 .highlight{
@@ -298,26 +298,23 @@ i.fas.fa-chevron-right {
 
 	.flag-container {
  position: relative; 
-   width: 100%;
+    height: 200px;
+    background-size: cover;
 }
 
 
-
-.flag-image {
-       height: 150px;
- 
-}
-
-.title {
-   background: #040404cc;
+.title-container {
+    background: #040404cc;
     position: absolute;
     width: 100%;
     bottom: 0px;
     padding: 0.5em;
     margin: 0;
     text-transform: uppercase;
-    font-size: 1.3rem;
+    font-weight: bold;
+    font-size: 1.2rem;
     margin-top: 0.2em;
+	    white-space: pre-wrap;
 
 }
 
