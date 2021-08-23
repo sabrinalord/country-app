@@ -227,7 +227,7 @@ return	`
 					})}
 				</p>
 				<p><span class ="subheading">Capital:</span> ${aCountry.capital}</p>
-				<p><span class ="subheading">Currency:</span>
+				<p><span class ="subheading currency">Currency:</span>
 					${aCountry.currencies.map(currency => {
 					return ' ' + currency.name + ' (' + currency.symbol + ')';	
 					})}
