@@ -1,4 +1,3 @@
-
 body {
 	margin: 0 auto;
 	font-family:arial;
@@ -9,73 +8,67 @@ textarea:focus, input:focus, select:focus{
     outline: none;
 }
 
-
 input, select{
     border: none;
 	width: 100%;
 }
 
-/*----------------- TYPOGRAPHY --------------------*/
-
-span.subheading {
-	font-weight:bolder;
-	
-}
-
-h1 {
-    text-align: center;
-    font-size: 4rem;
-    padding: 1em;
-    letter-spacing: 0.06em;
-    color: #4d81f9;	
-}
-
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.6em;
-
-}
-
-
-/*-------------------------------- LAYOUT-----------------------------------*/
-
-
 .site-wrapper {
-	position:relative;
-	width:100%;
 	    background: radial-gradient(#ffffff 5%, #d0d0d0);
 }
 
+/*----------------------- HEADER ----------------------------------------*/
 
+header {
+      display: flex;
+    justify-content: space-between;
+    background: #191932;
+    align-items: center;
+	    width: 100%;
+    position: fixed;
+}
+
+/*---------COUNTRY SEARCH BAR STYLING --------*/
+
+.country-search-wrapper{
+	margin-right:3em;
+}
+
+.searchbar-large {
+    display: flex;
+    min-width: 300px;
+    background: white;
+    border-radius: 20px;
+    padding: 0.5em 1em;
+}
+
+.search-icon {
+    width: 15px;
+    z-index: 1;
+    color: #868686;
+    margin-right: 0.5em;
+    padding: 0em .2em;
+}
+
+  .clear-icon {
+    cursor: pointer;
+    visibility: hidden; 
+  }
 
 
 /*----------------- FILTER SIDE BAR BUTTON --------------------*/
 
 
 .filter-icon-btn{
-	padding:1em;
-
-}
-
-.filter-text{
-	    display: flex;
-    align-items: center;
-    margin-right: 1em;
-}
-
-
-#filter-svg {
-	fill:#fff;
 		width:30px;
+		padding:1em;
+		fill:#fff;
 }
 
 
 svg#filter-svg\ filter-close {
-	 width: 30px;
     fill: grey;
 }
-
 
 .filter-open{
 	cursor:pointer;
@@ -85,22 +78,20 @@ svg#filter-svg\ filter-close {
 	fill:#00fff9;
 }
 
-
+/*----------------- FILTER SIDE BAR --------------------*/
 
 .search-wrapper {
-
     background:#191932;
 	 width: 0;
-	    position: fixed;
+	 position: fixed;
 	overflow:hidden;
 	transition: 0.4s;
 	z-index:1;
-	
 
 }
 
 .filter-header{
-	    display: flex;
+display: flex;
 	justify-content: space-between;
 }
 
@@ -115,13 +106,7 @@ svg#filter-svg\ filter-close {
 
 .search-container{
 		padding: 1.5em;
-
 }
-
-.search-container p {
-	width:100px;
-}
-
 
 .searchbar-small {
     display: flex;
@@ -131,74 +116,12 @@ svg#filter-svg\ filter-close {
     margin: 1em 0em 1.5em;
     background: white;
     padding: 0.5em 0.5em;
-    max-width: 350px;
     transition: 0.5s;
     border-radius: 20px;
 }
 
 
-/*-------------------------- MAIN LAYOUT -------------------------------------------*/
-
-
-.main-container{
-		position:relative;
-
-}
-
-/*----------------------- HEADER ----------------------------------------*/
-
-
-header {
-      display: flex;
-    justify-content: space-between;
-    background: #191932;
-    align-items: center;
-	    width: 100%;
-    z-index: 1;
-    position: fixed;
-}
-
-
-
-
-
-/*---------COUNTRY SEARCH BAR STYLING --------*/
-
-.country-search-wrapper{
-	margin-right:3em;
-}
-
-
-.searchbar-large {
-    display: flex;
-    min-width: 300px;
-    background: white;
-    border-radius: 20px;
-    padding: 0.5em 1em;
-}
-
-
-
-
-.search-icon {
-    width: 15px;
-    z-index: 1;
-    color: #868686;
-    margin-right: 0.5em;
-    padding: 0em .2em;
-}
-
-  .clear-icon {
-    cursor: pointer;
-    visibility: hidden; 
-  }
-/*-----------------------END OF HEADER ----------------------------------------*/
-
-
-
 /*---------------- CLICKABLE MAP --------------------*/
-
-
 
 #map-svg{
 	fill: #6aa9ff; 
@@ -206,7 +129,6 @@ header {
     -webkit-text-stroke-width: thin;
     stroke-width: 0.5px;
 	cursor:grab;
-	width:100%;
 }
 
 #map-svg:active { cursor: grabbing; }
@@ -265,15 +187,11 @@ i.fas.fa-chevron-right {
     scrollbar-width: none;  /* Firefox */
 	    display: flex;
 		margin:0em 1em;
-
 }
-
-
 
 .country-card-container::-webkit-scrollbar { 
     display: none;  /* Safari and Chrome */
 }
-
 
 .country-card {
     min-width: 260px;
@@ -285,8 +203,6 @@ i.fas.fa-chevron-right {
     overflow: hidden;
 	display:inline-block;
 		opacity:0.9;
-	
-
 }
 
 	.flag-container {
@@ -294,7 +210,6 @@ i.fas.fa-chevron-right {
     height: 200px;
     background-size: cover;
 }
-
 
 .title-container {
     background: #040404cc;
@@ -308,9 +223,7 @@ i.fas.fa-chevron-right {
     font-size: 1.2rem;
     margin-top: 0.2em;
 	    white-space: pre-wrap;
-
 }
-
 	
 .stat-container {
     padding: 0.8em;
@@ -318,10 +231,22 @@ i.fas.fa-chevron-right {
 
 }
 
-.stat-container p{
-	    font-size: 0.9em;
+span.subheading {
+	font-weight:bolder;
 }
 
+h1 {
+    text-align: center;
+    font-size: 4rem;
+    padding: 1em;
+    letter-spacing: 0.06em;
+    color: #4d81f9;	
+}
 
+.stat-container p{
+	    font-size: 0.9em;
+		margin-top: 0.5em;
+	margin-bottom: 0.6em;
+}
 
 
