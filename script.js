@@ -2,25 +2,7 @@
 const countryCardContainer = document.querySelector('.country-card-container')
 const countryCardWrapper = document.querySelector('.country-card-wrapper')
 const countryCardArrow = document.querySelector('.fa-chevron-right')
-
-//country search variables
-
-const countryNameForm = document.getElementById('filter-name')
-let countryNameQuery = ""
 const clearIcon = document.querySelector(".clear-icon");
-
-
-const languageForm = document.getElementById('filter-language')
-let languageQuery = ""
-
-const regionForm = document.getElementById('filter-region')
-let regionValue = ""
-
-const subregionForm = document.getElementById('filter-subregion')
-let subregionValue = ""
-
-const populationForm = document.getElementById('filter-population')
-let populationValue = ""
 
 //clickable map
  const countryElements = document.getElementById('countries').childNodes;
@@ -28,16 +10,21 @@ let populationValue = ""
 const mapSvg = document.getElementById('map-svg');
 
 
+//empty queries
+let countryNameQuery = ""
+let languageQuery = ""
+let regionValue = ""
+let subregionValue = ""
+let populationValue = ""
+
 
 //start of fetch call
-
 async function getCountries() {
 	let response = await fetch('https://restcountries.eu/rest/v2/all');
 	let countriesData = await response.json();
 return countriesData 
 
 }
-
 // end of fetch call
 
 
@@ -47,27 +34,26 @@ function DisplayAndFilterHTML(countriesData){
 		let filterResults = []
 
 
-		  //clickable map
-
+		  //when user clicks on map, show country data
 		for (let i = 0; i < countryCount; i++) {
 		  countryElements[i].onclick = function() {
 				  countryNameForm.reset();
 				  countryNameQuery = this.getAttribute('data-name')
 				 filterResults = countriesData.filter(country => country.name.toUpperCase() === countryNameQuery.toUpperCase())
-				  displayFilter(filterResults)
+				 displayFilter(filterResults)
 				 lightUpMap()
 		  }
 		}
 
 		// filter options
-		countryNameForm.addEventListener('submit', watchNameForm)
-		languageForm.addEventListener('submit', watchLanguageForm)
-		regionForm.addEventListener('change', watchRegionForm)
-		subregionForm.addEventListener('change', watchSubRegionForm)
-		populationForm.addEventListener('change', watchPopulationForm)
+		document.getElementById('filter-name').addEventListener('submit', watchNameForm)
+		 document.getElementById('filter-language').addEventListener('submit', watchLanguageForm)
+		document.getElementById('filter-region').addEventListener('change', watchRegionForm)
+		document.getElementById('filter-subregion').addEventListener('change', watchSubRegionForm)
+		document.getElementById('filter-population').addEventListener('change', watchPopulationForm)
 
 
-		  //country name search bar
+		  //search by country name
 		function watchNameForm(event){
 			event.preventDefault();
 			countryNameQuery = document.getElementById('country-name').value
@@ -77,27 +63,16 @@ function DisplayAndFilterHTML(countriesData){
 			 lightUpMap()
 		}
 
-	//  end of country name search bar
-
-
+	   //search by language
 		function watchLanguageForm(event){
 		event.preventDefault();
 		languageQuery = document.getElementById('language').value;
-			
 	    filterResults = countriesData.filter(country => country.languages.some(language => language.name === languageQuery))
-		
-		console.log(filterResults)
-			//Filter countries data array.
-						
-			// check if languageQuery is present in the countriesData.languages array, then include that country in the filter.. 
-			
-	
-
-		
 		displayFilter(filterResults)
-		 lightUpMap()
+		lightUpMap()
 		}		
 
+		//filter by region
 		function watchRegionForm(event) {
 		event.preventDefault(); 
 		let regionSelect = document.getElementById('region-select')
@@ -105,10 +80,9 @@ function DisplayAndFilterHTML(countriesData){
 		filterResults = countriesData.filter(country => country.region.toUpperCase() === regionValue.toUpperCase())
 		displayFilter(filterResults)
 		 lightUpMap()
-
-
 	}
-
+	
+	   //filter by subregion
 		function watchSubRegionForm(event) {
 		event.preventDefault();
 		let subregionSelect = document.getElementById('subregion-select')
@@ -118,12 +92,11 @@ function DisplayAndFilterHTML(countriesData){
 		 lightUpMap()
 	}
 
+		 //filter by population
 		function watchPopulationForm(event) {
 		event.preventDefault();
-
 		let populationSelect = document.getElementById('population-select')
 		populationValue = populationSelect.options[populationSelect.selectedIndex].value;
-
 
 				filterResults = countriesData.filter(function(country){
 					if (populationValue == "very-low") {
@@ -140,34 +113,11 @@ function DisplayAndFilterHTML(countriesData){
 				  else if (populationValue == "very-high"){
 						return country.population >= 80000001 && country.population <= 2000000000
 				  }
-
-
 				}) 
 
-
 		displayFilter(filterResults)
-		 lightUpMap()
+		lightUpMap()
 	}
-
-		function lightUpMap() {
-
-			// nested loop - loop through country map, loop through filter results, check for matches, turn yellow.
-
-			  for (let i = 0; i < countryCount; i++) { 
-						countryElements[i].classList.remove('highlight')
-
-
-						for(let j = 0; j < filterResults.length; j++) {
-							if(countryElements[i].getAttribute('data-name') == filterResults[j].name) {
-								countryElements[i].classList.add('highlight')
-								countryElements[i].classList.remove('land')
-
-
-							}
-
-						}
-			  }
-		}
 
 
 		  function displayFilter(filterResults){
@@ -188,13 +138,26 @@ function DisplayAndFilterHTML(countriesData){
 			  }
 			  else {
 			   countryCardWrapper.style.display = "none";
-			}
+			}  
 		  }
 	
+			function lightUpMap() {
+			// nested loop - loop through country map, loop through filter results, check for matches, highlight.
+			  for (let i = 0; i < countryCount; i++) { 
+						countryElements[i].classList.remove('highlight')
+
+							for(let j = 0; j < filterResults.length; j++) {
+								if(countryElements[i].getAttribute('data-name') == filterResults[j].name) {
+									countryElements[i].classList.add('highlight')
+									countryElements[i].classList.remove('land')
+								}
+							}
+			              }
+		                }
+
 	
 
 	// show or hide the scrolling chevron for country card wrapper
-			
 		function showHidearrow() {
 					if (countryCardContainer.scrollWidth > countryCardContainer.clientWidth){
 						  countryCardArrow.style.display = "block";
@@ -291,7 +254,7 @@ var pointerOrigin = {
 function onPointerDown(event) {
   isPointerDown = true; // We set the pointer as down
   
-  // We get the pointer position on click/touchdown so we can get the value once the user starts to drag
+  // Get the pointer position on click/touchdown so we can get the value once the user starts to drag
   const pointerPosition = getPointFromEvent(event);
   pointerOrigin.x = pointerPosition.x;
   pointerOrigin.y = pointerPosition.y;
@@ -348,9 +311,7 @@ function onPointerMove (event) {
 
 
 
-//Filter button and sidebar
-
-const filterBtn = document.querySelector('.filter-icon-btn')
+//Open and close the side bar
 
 function openSidebar() {
 	document.querySelector('.search-wrapper').style.width = "250px";
@@ -363,14 +324,12 @@ function closeSidebar() {
 }
 
 
-// country wrapper close
-
+// close the country wrapper
 function closeCountryWrapper(){
 	countryCardWrapper.style.display = "none";
 }
 
 // country wrapper scroll right
-
 function scrollRight(){
 	event.preventDefault();
 countryCardContainer.scrollBy({	
