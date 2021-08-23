@@ -2,7 +2,8 @@
 const countryCardContainer = document.querySelector('.country-card-container')
 const countryCardWrapper = document.querySelector('.country-card-wrapper')
 const countryCardArrow = document.querySelector('.fa-chevron-right')
-const clearIcon = document.querySelector(".clear-icon");
+const clearIcon = document.querySelector(".clear-icon")
+const countryNameForm = document.getElementById('filter-name')
 
 //clickable map
  const countryElements = document.getElementById('countries').childNodes;
@@ -46,7 +47,7 @@ function DisplayAndFilterHTML(countriesData){
 		}
 
 		// filter options
-		document.getElementById('filter-name').addEventListener('submit', watchNameForm)
+		countryNameForm.addEventListener('submit', watchNameForm)
 		 document.getElementById('filter-language').addEventListener('submit', watchLanguageForm)
 		document.getElementById('filter-region').addEventListener('change', watchRegionForm)
 		document.getElementById('filter-subregion').addEventListener('change', watchSubRegionForm)

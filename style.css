@@ -1,7 +1,13 @@
+html{
+	background: radial-gradient(#ffffff 5%, #d0d0d0);
+    height: 100%;
+}
+
 body {
 	margin: 0 auto;
 	font-family:arial;
 	color:#fff;
+	 min-height: 100%;
 }
 
 textarea:focus, input:focus, select:focus{
@@ -13,9 +19,6 @@ input, select{
 	width: 100%;
 }
 
-.site-wrapper {
-	    background: radial-gradient(#ffffff 5%, #d0d0d0);
-}
 
 /*----------------------- HEADER ----------------------------------------*/
 
@@ -63,6 +66,8 @@ header {
 		width:30px;
 		padding:1em;
 		fill:#fff;
+		min-width: 30px;
+
 }
 
 
@@ -103,7 +108,6 @@ display: flex;
 	cursor:pointer;
 }
 
-
 .search-container{
 		padding: 1.5em;
 }
@@ -120,9 +124,14 @@ display: flex;
     border-radius: 20px;
 }
 
-
 /*---------------- CLICKABLE MAP --------------------*/
 
+.map-container{
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+	height:150vh;
+}
 #map-svg{
 	fill: #6aa9ff; 
 	  stroke: white;
@@ -149,7 +158,7 @@ cursor:pointer;
 .country-card-wrapper{
     background: #000000ad;
     width: 100%;
-    position: fixed;
+    position: absolute;
     bottom: 0;
 	opacity:0;
 	transition: 0.4s;
@@ -247,6 +256,37 @@ h1 {
 	    font-size: 0.9em;
 		margin-top: 0.5em;
 	margin-bottom: 0.6em;
+}
+
+
+/*MEDIA QUERIES*/
+
+@media (max-width: 1100px){
+	.map-container{
+			height:100vh;
+
+}
+}
+
+
+@media (max-width: 1000px){
+	.searchbar-large{
+		min-width:150px;
+	}
+	.flag-container{
+		height: 150px;
+	}
+	.country-card{
+		min-width: 230px;
+	}
+
+}
+
+@media (max-width: 800px){
+	.map-container{
+    display: block;
+
+}
 }
 
 
