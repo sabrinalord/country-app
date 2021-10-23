@@ -21,7 +21,7 @@ let populationValue = ""
 
 //start of fetch call
 async function getCountries() {
-	let response = await fetch('https://restcountries.eu/rest/v2/all');
+	let response = await fetch('https://restcountries.com/v3.1/all');
 	let countriesData = await response.json();
 return countriesData 
 
