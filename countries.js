@@ -1,6 +1,6 @@
 
 const countryCardContainer = document.querySelector('.country-card-container')
-const countryCardWrapper = document.querySelector('.country-card-wrapper')
+const ModalCountryDetails = document.querySelector('.modal-country-details')
 const countryCardArrow = document.querySelector('.fa-chevron-right')
 const clearIcon = document.querySelector(".clear-icon")
 const countryNameForm = document.getElementById('filter-name')
@@ -123,22 +123,22 @@ function DisplayAndFilterHTML(countriesData){
 
 		  function displayFilter(filterResults){
 			if (filterResults.length > 1) {
-			document.querySelector('.country-card-wrapper').style.opacity="1";
+			document.querySelector('.modal-country-details').style.opacity="1";
 			countryCardContainer.innerHTML = filterResults.map(createHTML).join('');
-					countryCardWrapper.classList.remove('country-card-single')
-					countryCardWrapper.style.display = "flex";
+					ModalCountryDetails.classList.remove('country-card-single')
+					ModalCountryDetails.style.display = "flex";
 				showHidearrow()
 
 			} 
 			  else if (filterResults.length == 1) {
-            countryCardWrapper.style.display = "flex";
-			document.querySelector('.country-card-wrapper').style.opacity="1";
+            ModalCountryDetails.style.display = "flex";
+			document.querySelector('.modal-country-details').style.opacity="1";
 			countryCardContainer.innerHTML = filterResults.map(createHTML).join('');
-			countryCardWrapper.classList.add('country-card-single');
+			ModalCountryDetails.classList.add('country-card-single');
 			countryCardArrow.style.display = "none";
 			  }
 			  else {
-			   countryCardWrapper.style.display = "none";
+			   ModalCountryDetails.style.display = "none";
 			}  
 		  }
 	
@@ -315,19 +315,19 @@ function onPointerMove (event) {
 //Open and close the side bar
 
 function openSidebar() {
-	document.querySelector('.search-wrapper').style.width = "250px";
+	document.querySelector('.filter-modal').style.width = "250px";
 
 }
 
 function closeSidebar() {
-	document.querySelector('.search-wrapper').style.width = "0px";
+	document.querySelector('.filter-modal').style.width = "0px";
 
 }
 
 
 // close the country wrapper
 function closeCountryWrapper(){
-	countryCardWrapper.style.display = "none";
+	ModalCountryDetails.style.display = "none";
 }
 
 // country wrapper scroll right

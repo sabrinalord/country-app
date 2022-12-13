@@ -85,7 +85,7 @@ svg#filter-svg\ filter-close {
 
 /*----------------- FILTER SIDE BAR --------------------*/
 
-.search-wrapper {
+.filter-modal {
     background:#191932;
 	 width: 0;
 	 position: fixed;
@@ -108,7 +108,7 @@ display: flex;
 	cursor:pointer;
 }
 
-.search-container{
+.filter-options{
 		padding: 1.5em;
 }
 
@@ -155,7 +155,7 @@ cursor:pointer;
 
 
 /*----------------- COUNTRY CARD STYLING --------------------*/
-.country-card-wrapper{
+.modal-country-details{
     background: #000000ad;
     width: 100%;
     position: absolute;
