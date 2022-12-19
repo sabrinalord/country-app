@@ -8,6 +8,7 @@ body {
 	font-family:arial;
 	color:#fff;
 	 min-height: 100%;
+     position:relative;
 }
 
 textarea:focus, input:focus, select:focus{

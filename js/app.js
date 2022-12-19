@@ -22,26 +22,6 @@ fetch('https://restcountries.com/v2/all').then((response) => {
 	console.log(error)
   });
 
-
-  const openSidebar = () => {
-	document.querySelector('.filter-modal').style.width = "250px";
- }
- 
-   const closeSidebar = () => {
-	document.querySelector('.filter-modal').style.width = "0px";
- }
- 
- 
-  const closeModalCountryWrapper = () => {
-	 document.querySelector('.modal-country-wrapper').style.display = "none";
-  }
- 
-  const openModalCountryWrapper = () => {
-	 document.querySelector('.modal-country-wrapper').style.display = "flex";
-  }
- 
- 
-
 for (const countrySVG of countriesMap) {
 	countrySVG.addEventListener('click', function(event) {
 	  let SVGtargetCountry = event.target.getAttribute("svg-country-name");
@@ -143,7 +123,7 @@ const filterByLanguage = (event) => {
 		)
 	displayCountryCard(filteredCountryJSON)
 }	
-document.getElementById('filter-language').addEventListener('submit', filterByLanguage)
+document.getElementById('filter-language').addEventListener('submit', filterByLanguage);
 
 const filterByRegion = (event) => {
 	event.preventDefault(); 
@@ -152,7 +132,7 @@ const filterByRegion = (event) => {
 	filterResults = countriesData.filter(country => country.region.toUpperCase() === regionValue.toUpperCase())
 	displayCountryCard(filterResults)
 }
-document.getElementById('filter-region').addEventListener('change', filterByRegion)
+document.getElementById('filter-region').addEventListener('change', filterByRegion);
 
 
 const filterBySubregion = (event) => {
@@ -162,7 +142,7 @@ const filterBySubregion = (event) => {
 	filterResults = countriesData.filter(country => country.subregion.toUpperCase() === subregionText.toUpperCase())
 	displayCountryCard(filterResults)
 }
-document.getElementById('filter-subregion').addEventListener('change', filterBySubregion)
+document.getElementById('filter-subregion').addEventListener('change', filterBySubregion);
 
 const filterByPopulation = () => {
 	let populationSelect = document.getElementById('population-select')
@@ -185,4 +165,4 @@ const filterByPopulation = () => {
 	});
 	displayCountryCard(filterResults)
 }
-document.getElementById('filter-population').addEventListener('change', filterByPopulation)
+document.getElementById('filter-population').addEventListener('change', filterByPopulation);
