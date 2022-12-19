@@ -136,7 +136,7 @@ display: flex;
 
 /*---------------- CLICKABLE MAP --------------------*/
 
-.map-container{
+map-container{
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -147,10 +147,7 @@ display: flex;
 	  stroke: white;
     -webkit-text-stroke-width: thin;
     stroke-width: 0.5px;
-	cursor:grab;
 }
-
-#map-svg:active { cursor: grabbing; }
 
 .country{
 cursor:pointer;
@@ -176,27 +173,10 @@ cursor:pointer;
     justify-content: center;
 }
 
-.country-card-single {
-	justify-content:center;
-}
-
-.country-card-nav{
-	padding: 1em;
-    display: flex;
-    align-items: center;
-}
-
 .country-wrapper-close-icon{
 	position:absolute;
 	right:0px;
 	top:0px;
-}
-
-
-
-i.fas.fa-chevron-right {
-    font-size: 2em;
-	cursor:pointer;
 }
 
 .country-card-container {
@@ -273,7 +253,7 @@ h1 {
 /*MEDIA QUERIES*/
 
 @media (max-width: 1100px){
-	.map-container{
+	#map-container{
 			height:100vh;
 
 }
