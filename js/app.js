@@ -167,16 +167,19 @@ const filterByPopulation = () => {
 			return country.population >= 100001 && country.population <= 500000
 		}
 		else if (populationValue == "500000-1million"){
-			return country.population >= 500001 && country.population <= 100000000
+			return country.population >= 500001 && country.population <= 1000000
 		}
-		else if (populationValue == "1million-50million"){
-			return country.population >= 100000001 && country.population <= 50000000000
+		else if (populationValue == "1million-5million"){
+			return country.population >= 1000001 && country.population <= 5000000
+		}
+		else if (populationValue == "5million-50million"){
+			return country.population >= 5000001 && country.population <= 50000000
 		}
 		else if (populationValue == "50million-80million"){
-			return country.population >= 50000000001 && country.population <= 80000000000
+			return country.population >= 50000001 && country.population <= 80000000
 		}
 		else if (populationValue == "80million-100million"){
-			return country.population >= 80000000001 && country.population <= 1000000000
+			return country.population >= 80000001 && country.population <= 100000000
 		}
 		else if (populationValue == "Over-100million"){
 			return country.population >= 100000001
