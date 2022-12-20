@@ -1,13 +1,7 @@
-
 const countryCardContainer = document.querySelector('.country-card-container')
-const countryCardArrow = document.querySelector('.fa-chevron-right')
-const searchByCountryNameForm = document.getElementById('search-by-country-name-form')
-const countriesMap = document.querySelectorAll(".country");
-
-
-
+const searchByCountryNameInput = document.getElementById('search-by-country-name-form')
+const countriesMap = document.querySelectorAll(".country")
 let countriesData
-
 
 fetch('https://restcountries.com/v2/all').then((response) => {
 	if (response.ok) {
@@ -22,14 +16,7 @@ fetch('https://restcountries.com/v2/all').then((response) => {
 	console.log(error)
   });
 
-for (const countrySVG of countriesMap) {
-	countrySVG.addEventListener('click', function(event) {
-	  let SVGtargetCountry = event.target.getAttribute("svg-country-name");
-	  filterByCountryName(SVGtargetCountry);
-  })
-}
-
-searchByCountryNameForm.addEventListener('submit', function(event){
+searchByCountryNameInput.addEventListener('submit', function(event){
 	event.preventDefault();
 	clearSearchErrorMessage();
 	let searchQuery = document.getElementById('country-name-input').value;
@@ -38,7 +25,6 @@ searchByCountryNameForm.addEventListener('submit', function(event){
 
 const validateSearchQuery = (searchQuery) => {
 	let errorContainer = document.getElementById("error-container")
-
     if (document.querySelector(`[svg-country-name="${searchQuery}"]`)) {
 	   let SVGtargetCountry = searchQuery;
 	   filterByCountryName(SVGtargetCountry);
@@ -49,6 +35,13 @@ const validateSearchQuery = (searchQuery) => {
 
 const clearSearchErrorMessage = () => {
 	document.getElementById("error-container").textContent = "";
+}
+
+for (const countrySVG of countriesMap) {
+	countrySVG.addEventListener('click', function(event) {
+	  let SVGtargetCountry = event.target.getAttribute("svg-country-name");
+	  filterByCountryName(SVGtargetCountry);
+  })
 }
 
 const filterByCountryName = (SVGtargetCountry) => {
@@ -73,7 +66,7 @@ const clearHighlightedCountries = () => {
 
 	}
 }
-  
+
 const displayCountryCard = (filteredCountryJSON) => {
 	openModalCountryWrapper();
 	highlightActiveCountries(filteredCountryJSON);
@@ -114,7 +107,6 @@ return	`
 `
 }
 
-
 const filterByLanguage = (event) => {
 	event.preventDefault();
 	let languageQuery = document.getElementById('language').value;
@@ -144,23 +136,50 @@ const filterBySubregion = (event) => {
 }
 document.getElementById('filter-subregion').addEventListener('change', filterBySubregion);
 
+
+const populationSlider = document.getElementById("populationSlider");
+document.getElementById("populationDisplay").innerHTML = populationSlider.value; ;
+
+populationSlider.oninput = function() {
+	let populationQuery = populationSlider.value
+	document.getElementById("populationDisplay").innerHTML = populationQuery
+	filterByPopulationSlider(populationQuery)
+}
+
+const filterByPopulationSlider = (populationQuery) => {
+	filterResults = countriesData.filter(country => country.population <= populationQuery)
+	displayCountryCard(filterResults)
+}
+
 const filterByPopulation = () => {
 	let populationSelect = document.getElementById('population-select')
 	populationValue = populationSelect.options[populationSelect.selectedIndex].value;
 
 	filterResults = countriesData.filter(function(country){
-		if (populationValue == "very-low") {
-			return country.population >= 0 && country.population <= 20000}
-		else if (populationValue == "low"){
-			return country.population >= 20001 && country.population <= 1000000}
-		else if (populationValue == "medium"){
-			return country.population >= 1000001 && country.population <= 5000000
+		if (populationValue == "under-5000") {
+			return country.population >= 0 && country.population <= 5000}
+		else if (populationValue == "5000-50000"){
+			return country.population >= 5001 && country.population <= 50000}
+		else if (populationValue == "50000-100000"){
+			return country.population >= 50001 && country.population <= 100000
 		}
-		else if (populationValue == "high"){
-			return country.population >= 5000001 && country.population <= 80000000
+		else if (populationValue == "100000-500000"){
+			return country.population >= 100001 && country.population <= 500000
 		}
-		else if (populationValue == "very-high"){
-			return country.population >= 80000001 && country.population <= 2000000000
+		else if (populationValue == "500000-1million"){
+			return country.population >= 500001 && country.population <= 100000000
+		}
+		else if (populationValue == "1million-50million"){
+			return country.population >= 100000001 && country.population <= 50000000000
+		}
+		else if (populationValue == "50million-80million"){
+			return country.population >= 50000000001 && country.population <= 80000000000
+		}
+		else if (populationValue == "80million-100million"){
+			return country.population >= 80000000001 && country.population <= 1000000000
+		}
+		else if (populationValue == "Over-100million"){
+			return country.population >= 100000001
 		}
 	});
 	displayCountryCard(filterResults)

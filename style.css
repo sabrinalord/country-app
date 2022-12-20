@@ -135,6 +135,12 @@ display: flex;
     border-radius: 20px;
 }
 
+.slidecontainer {
+    width: 100%; /* Width of the outside container */
+  }
+  
+
+
 /*---------------- CLICKABLE MAP --------------------*/
 
 map-container{
